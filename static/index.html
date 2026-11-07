@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Grant & Funding Finder for Startups — Powered by IBM Granite</title>
+  <meta name="description" content="Find, match, and apply for grants and funding using AI. Powered by IBM Granite on IBM Cloud Lite." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────────────────── -->
+<nav class="navbar">
+  <div class="container">
+    <a href="/" class="navbar-brand">
+      <div class="logo-icon">💡</div>
+      <div>
+        AI Grant Finder
+        <span class="navbar-tagline">AICTE Problem Statement #18</span>
+      </div>
+    </a>
+    <div style="display:flex;align-items:center;gap:.8rem;flex-wrap:wrap">
+      <span id="api-status" style="font-size:.78rem">Checking API…</span>
+      <span class="ibm-badge">IBM <span class="granite">Granite</span></span>
+      <span class="navbar-badge">IBM Cloud Lite</span>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="container">
+    <h1>🚀 AI-Powered Grant &amp; Funding Finder</h1>
+    <p>
+      Discover, match, and apply for the right funding opportunities
+      for your startup — powered by <strong>IBM Granite AI</strong> on IBM Cloud Lite.
+    </p>
+    <div style="margin-top:1.2rem;display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap">
+      <span class="ibm-badge" style="font-size:.82rem">🤖 IBM Granite LLM</span>
+      <span class="ibm-badge" style="font-size:.82rem">☁️ IBM Cloud Lite</span>
+      <span class="ibm-badge" style="font-size:.82rem">🧠 watsonx.ai</span>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">10+</div><div class="lbl">Grant Sources</div></div>
+      <div class="hero-stat"><div class="num">AI</div><div class="lbl">Powered Matching</div></div>
+      <div class="hero-stat"><div class="num">∞</div><div class="lbl">Proposal Drafts</div></div>
+      <div class="hero-stat"><div class="num">🇮🇳</div><div class="lbl">India + Global</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Tabs ─────────────────────────────────────────────────────────── -->
+<div class="tabs">
+  <button class="tab-btn active" data-tab="tab-browse">🔍 Browse Grants</button>
+  <button class="tab-btn" data-tab="tab-match">🤖 AI Match</button>
+  <button class="tab-btn" data-tab="tab-propose">✍️ Draft Proposal</button>
+  <button class="tab-btn" data-tab="tab-about">ℹ️ About</button>
+</div>
+
+<div class="container" style="padding-top:.5rem;padding-bottom:2rem">
+
+  <!-- ──────────────────────────────────────────────────────────────── -->
+  <!--  TAB 1: Browse Grants                                           -->
+  <!-- ──────────────────────────────────────────────────────────────── -->
+  <div id="tab-browse" class="tab-pane active">
+    <div class="card" style="margin-bottom:1rem">
+      <div class="search-bar">
+        <span style="color:var(--text-muted);font-size:1.1rem">🔍</span>
+        <input id="search-input" type="text" placeholder="Search grants by keyword, domain, or programme name…" />
+        <button id="search-btn" class="btn btn-primary">Search</button>
+      </div>
+      <div class="filters">
+        <select id="filter-domain" class="filter-select">
+          <option value="">All Domains</option>
+          <option value="AI">AI / ML</option>
+          <option value="fintech">Fintech</option>
+          <option value="healthtech">Healthtech</option>
+          <option value="edtech">Edtech</option>
+          <option value="agritech">Agritech</option>
+          <option value="cleantech">Cleantech</option>
+          <option value="deep-tech">Deep Tech</option>
+          <option value="ICT">ICT / Software</option>
+          <option value="biotech">Biotech</option>
+          <option value="social-impact">Social Impact</option>
+        </select>
+        <select id="filter-stage" class="filter-select">
+          <option value="">All Stages</option>
+          <option value="ideation">Ideation</option>
+          <option value="prototype">Prototype</option>
+          <option value="early-stage">Early Stage</option>
+          <option value="growth">Growth</option>
+          <option value="scale-up">Scale-up</option>
+        </select>
+        <select id="filter-location" class="filter-select">
+          <option value="">All Locations</option>
+          <option value="India">India</option>
+          <option value="USA">USA</option>
+          <option value="EU">European Union</option>
+        </select>
+        <select id="filter-type" class="filter-select">
+          <option value="">All Types</option>
+          <option value="Grant">Grant</option>
+          <option value="Loan">Loan</option>
+          <option value="Equity">Equity</option>
+          <option value="Challenge">Challenge</option>
+        </select>
+        <button id="refresh-btn" class="btn btn-secondary btn-sm">🔄 Refresh</button>
+      </div>
+      <div id="results-count" style="font-size:.82rem;color:var(--text-muted)">Loading…</div>
+    </div>
+
+    <div id="grants-grid"></div>
+    <div id="grants-pagination" class="pagination"></div>
+  </div>
+
+  <!-- ──────────────────────────────────────────────────────────────── -->
+  <!--  TAB 2: AI Match                                                -->
+  <!-- ──────────────────────────────────────────────────────────────── -->
+  <div id="tab-match" class="tab-pane">
+    <div style="display:grid;gap:1.5rem" class="form-row cols-2" style="align-items:start">
+
+      <!-- Profile form -->
+      <div class="card">
+        <h2 style="margin-bottom:1.2rem">🏢 Startup Profile</h2>
+        <form id="matching-form">
+          <div class="form-row cols-2">
+            <div class="form-group">
+              <label class="form-label">Startup Name *</label>
+              <input class="form-control" name="startup_name" placeholder="e.g. MedAI Solutions" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Primary Domain *</label>
+              <select class="form-select" name="domain">
+                <option value="">Select domain</option>
+                <option value="AI">AI / Machine Learning</option>
+                <option value="fintech">Fintech</option>
+                <option value="healthtech">Healthtech / MedTech</option>
+                <option value="edtech">Edtech</option>
+                <option value="agritech">Agritech</option>
+                <option value="cleantech">Cleantech / GreenTech</option>
+                <option value="deep-tech">Deep Tech</option>
+                <option value="ICT">ICT / SaaS</option>
+                <option value="biotech">Biotech / Life Sciences</option>
+                <option value="social-impact">Social Impact</option>
+                <option value="logistics">Logistics / Supply Chain</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row cols-2">
+            <div class="form-group">
+              <label class="form-label">Startup Stage</label>
+              <select class="form-select" name="stage">
+                <option value="">Select stage</option>
+                <option value="ideation">Ideation</option>
+                <option value="validation">Validation</option>
+                <option value="prototype">Prototype / PoC</option>
+                <option value="early-stage">Early Stage</option>
+                <option value="growth">Growth</option>
+                <option value="scale-up">Scale-up</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Location / Country</label>
+              <input class="form-control" name="location" placeholder="e.g. Bangalore, India" />
+            </div>
+          </div>
+          <div class="form-row cols-2">
+            <div class="form-group">
+              <label class="form-label">Team Size</label>
+              <input class="form-control" name="team_size" type="number" min="1" placeholder="e.g. 5" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Keywords (comma-separated)</label>
+              <input class="form-control" name="keywords" placeholder="e.g. NLP, healthcare, rural" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Problem You Are Solving</label>
+            <textarea class="form-control" name="problem" placeholder="Describe the core problem your startup addresses…"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Your Solution</label>
+            <textarea class="form-control" name="solution" placeholder="Describe your product or technology solution…"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" style="width:100%">
+            🤖 Find Matching Grants with IBM Granite AI
+          </button>
+        </form>
+      </div>
+
+      <!-- Match results -->
+      <div>
+        <div id="match-results">
+          <div class="empty-state">
+            <div class="icon">🤖</div>
+            <h3>AI Matching Ready</h3>
+            <p>Fill in your startup profile and click "Find Matching Grants" to get personalised results powered by IBM Granite.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ──────────────────────────────────────────────────────────────── -->
+  <!--  TAB 3: Draft Proposal                                          -->
+  <!-- ──────────────────────────────────────────────────────────────── -->
+  <div id="tab-propose" class="tab-pane">
+    <div style="display:grid;gap:1.5rem;grid-template-columns:1fr 1fr;align-items:start">
+
+      <div class="card">
+        <h2 style="margin-bottom:1.2rem">✍️ Generate Grant Proposal</h2>
+        <div class="alert alert-info" style="margin-bottom:1rem">
+          🤖 IBM Granite AI will draft a full proposal tailored to the selected grant and your startup profile. Always review before submitting.
+        </div>
+        <form id="proposal-form">
+          <div class="form-group">
+            <label class="form-label">Select Grant *</label>
+            <select class="form-select" id="proposal-grant-select" name="grant_id" required>
+              <option value="">Loading grants…</option>
+            </select>
+          </div>
+          <div class="form-row cols-2">
+            <div class="form-group">
+              <label class="form-label">Startup Name *</label>
+              <input class="form-control" name="startup_name" placeholder="e.g. MedAI Solutions" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Domain</label>
+              <input class="form-control" name="domain" placeholder="e.g. AI, Healthtech" />
+            </div>
+          </div>
+          <div class="form-row cols-2">
+            <div class="form-group">
+              <label class="form-label">Stage</label>
+              <select class="form-select" name="stage">
+                <option value="early-stage">Early Stage</option>
+                <option value="prototype">Prototype</option>
+                <option value="ideation">Ideation</option>
+                <option value="growth">Growth</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Location</label>
+              <input class="form-control" name="location" placeholder="e.g. Mumbai, India" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Problem Statement</label>
+            <textarea class="form-control" name="problem" rows="3" placeholder="Core problem your startup solves…"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Solution / Product</label>
+            <textarea class="form-control" name="solution" rows="3" placeholder="Your AI-powered solution…"></textarea>
+          </div>
+          <div class="form-row cols-2">
+            <div class="form-group">
+              <label class="form-label">Team Size</label>
+              <input class="form-control" name="team_size" type="number" min="1" placeholder="5" />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-accent btn-lg" style="width:100%">
+            ✨ Generate Proposal with IBM Granite
+          </button>
+        </form>
+      </div>
+
+      <div>
+        <div id="proposal-output">
+          <div class="empty-state">
+            <div class="icon">✍️</div>
+            <h3>Proposal Will Appear Here</h3>
+            <p>Select a grant, fill your startup details, and click Generate to get an AI-drafted proposal.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ──────────────────────────────────────────────────────────────── -->
+  <!--  TAB 4: About                                                   -->
+  <!-- ──────────────────────────────────────────────────────────────── -->
+  <div id="tab-about" class="tab-pane">
+    <div class="card" style="max-width:800px;margin:0 auto">
+      <h2 style="margin-bottom:1rem">About This Project</h2>
+
+      <div class="alert alert-info">
+        <strong>AICTE Problem Statement #18</strong> — AI Grant and Funding Finder for Startups
+      </div>
+
+      <h3 style="margin:1.2rem 0 .5rem">🎯 Challenge</h3>
+      <p style="color:var(--text-muted);font-size:.9rem;line-height:1.7">
+        Funding opportunities are spread across multiple platforms with different formats, languages,
+        and update frequencies. Extracting eligibility, deadlines, and requirements from unstructured content
+        demands robust NLP. Personalising results based on startup stage, domain, and location adds complexity.
+        Generating tailored proposals must balance accuracy and creativity, while respecting legal boundaries.
+      </p>
+
+      <h3 style="margin:1.2rem 0 .5rem">🤖 IBM Technology Used</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:.5rem">
+        <div class="card" style="border-left:4px solid var(--primary)">
+          <h3 style="font-size:.95rem">IBM Granite (Mandatory)</h3>
+          <p style="font-size:.82rem;color:var(--text-muted);margin-top:.3rem">
+            IBM Granite 13B Instruct model via watsonx.ai for:
+            grant matching, proposal generation, grant summarisation,
+            and eligibility extraction.
+          </p>
+        </div>
+        <div class="card" style="border-left:4px solid var(--secondary)">
+          <h3 style="font-size:.95rem">IBM Cloud Lite (Mandatory)</h3>
+          <p style="font-size:.82rem;color:var(--text-muted);margin-top:.3rem">
+            IBM Cloud Lite free tier hosting for the Flask backend,
+            IBM Watson NLU for advanced NLP, and secure API key management.
+          </p>
+        </div>
+        <div class="card" style="border-left:4px solid var(--accent)">
+          <h3 style="font-size:.95rem">watsonx.ai Platform</h3>
+          <p style="font-size:.82rem;color:var(--text-muted);margin-top:.3rem">
+            Foundation model inference endpoint for low-latency prompting
+            with IBM Granite 13B and future fine-tuning capability.
+          </p>
+        </div>
+        <div class="card" style="border-left:4px solid var(--success)">
+          <h3 style="font-size:.95rem">IBM Watson NLU</h3>
+          <p style="font-size:.82rem;color:var(--text-muted);margin-top:.3rem">
+            Entity extraction, keyword analysis, and sentiment detection
+            from raw grant HTML content across multiple languages.
+          </p>
+        </div>
+      </div>
+
+      <h3 style="margin:1.2rem 0 .5rem">🏗️ Architecture</h3>
+      <div style="background:var(--surface);border-radius:8px;padding:1rem;font-family:monospace;font-size:.82rem;line-height:1.8">
+        Frontend (HTML/CSS/JS)<br/>
+        &nbsp;&nbsp;↕ REST API<br/>
+        Flask Backend (Python)<br/>
+        &nbsp;&nbsp;├── Grant Aggregator (RSS + Web scraping + Static DB)<br/>
+        &nbsp;&nbsp;├── Matching Engine (TF-IDF + IBM Granite AI re-ranking)<br/>
+        &nbsp;&nbsp;├── Proposal Generator (IBM Granite LLM)<br/>
+        &nbsp;&nbsp;└── IBM Granite Service (ibm-watsonx-ai SDK)
+      </div>
+
+      <h3 style="margin:1.2rem 0 .5rem">📂 Key Files</h3>
+      <table style="width:100%;border-collapse:collapse;font-size:.85rem">
+        <thead>
+          <tr style="background:var(--surface)">
+            <th style="padding:.5rem;text-align:left;border:1px solid var(--border)">File</th>
+            <th style="padding:.5rem;text-align:left;border:1px solid var(--border)">Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:.5rem;border:1px solid var(--border)"><code>app.py</code></td><td style="padding:.5rem;border:1px solid var(--border)">Flask WSGI entry point</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border)"><code>app/services/granite_service.py</code></td><td style="padding:.5rem;border:1px solid var(--border)">IBM Granite AI integration</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border)"><code>app/services/grant_aggregator.py</code></td><td style="padding:.5rem;border:1px solid var(--border)">Multi-source grant data aggregation</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border)"><code>app/services/matching_engine.py</code></td><td style="padding:.5rem;border:1px solid var(--border)">TF-IDF + AI personalised matching</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border)"><code>app/services/proposal_generator.py</code></td><td style="padding:.5rem;border:1px solid var(--border)">AI proposal drafting</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border)"><code>app/routes/grants.py</code></td><td style="padding:.5rem;border:1px solid var(--border)">REST API endpoints</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border)"><code>.env</code></td><td style="padding:.5rem;border:1px solid var(--border)">IBM API keys &amp; configuration</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border)"><code>static/</code></td><td style="padding:.5rem;border:1px solid var(--border)">Frontend SPA (HTML/CSS/JS)</td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin:1.2rem 0 .5rem">🚀 Setup</h3>
+      <div style="background:var(--surface);border-radius:8px;padding:1rem;font-family:monospace;font-size:.82rem;line-height:1.8">
+        # 1. Install dependencies<br/>
+        pip install -r requirements.txt<br/><br/>
+        # 2. Configure IBM credentials<br/>
+        # Edit .env — add IBM_API_KEY, IBM_PROJECT_ID<br/><br/>
+        # 3. Run the application<br/>
+        python app.py<br/><br/>
+        # 4. Open browser<br/>
+        http://localhost:5000
+      </div>
+    </div>
+  </div>
+
+</div><!-- /.container -->
+
+<!-- ── Grant Detail Modal ──────────────────────────────────────────── -->
+<div id="grant-modal" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Grant Details</div>
+      <button class="modal-close" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body">Loading…</div>
+    <div class="modal-footer">
+      <button class="modal-close btn btn-secondary btn-sm">Close</button>
+      <button class="btn btn-accent btn-sm" onclick="quickPropose(window.state?.currentGrant?.id)">✍️ Draft Proposal</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Footer ──────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <p>
+      <strong>AI Grant &amp; Funding Finder for Startups</strong> &mdash;
+      AICTE Problem Statement #18 &bull;
+      Built with <span class="ibm-badge" style="font-size:.72rem;padding:.15rem .5rem">IBM <span class="granite">Granite</span></span>
+      &amp; IBM Cloud Lite
+    </p>
+    <p style="margin-top:.4rem;opacity:.6">
+      This tool is for research and informational purposes. Always verify grant details on official portals before applying.
+    </p>
+  </div>
+</footer>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>
