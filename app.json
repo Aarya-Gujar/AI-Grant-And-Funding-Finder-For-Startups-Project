@@ -1,0 +1,12 @@
+{
+  "name": "AI Grant and Funding Finder for Startups",
+  "version": "1.0.0",
+  "description": "An AI-powered platform that helps startups discover grants, match funding opportunities, and generate proposal drafts.",
+  "project_type": "AI Application",
+  "backend": "Python Flask",
+  "ai_provider": "IBM",
+  "ai_model": "IBM Granite",
+  "ai_platform": "IBM watsonx.ai",
+  "cloud_platform": "IBM Cloud",
+  "entry_point": "app.py"
+}

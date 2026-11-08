@@ -1,0 +1,279 @@
+
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Architecture Blueprint — AI Grant &amp; Funding Finder</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:#0f1624;
+    color:#f4f4f4;
+    min-height:100vh;
+    padding:2rem 1.5rem 3rem;
+  }
+
+  .header{text-align:center;margin-bottom:2rem;}
+  .header .badge{
+    display:inline-flex;align-items:center;gap:.5rem;
+    background:#0043ce;color:#fff;
+    border-radius:20px;padding:.3rem 1rem;
+    font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    margin-bottom:.9rem;
+  }
+  .header h1{font-size:1.7rem;font-weight:700;color:#fff;line-height:1.25;margin-bottom:.4rem;}
+  .header p{font-size:.88rem;color:#a8b2c1;max-width:600px;margin:0 auto;}
+  .header p strong{color:#78a9ff;}
+
+  .diagram{
+    display:grid;
+    grid-template-columns:190px 1fr 195px;
+    gap:0;
+    max-width:1020px;
+    margin:0 auto 2rem;
+    align-items:stretch;
+  }
+
+  .col-sources{display:flex;flex-direction:column;gap:.5rem;padding-right:1.2rem;justify-content:center;}
+  .col-ibm{display:flex;flex-direction:column;gap:.5rem;padding-left:1.2rem;justify-content:center;}
+
+  .source-card{
+    background:#1a2235;
+    border:1px solid #2d3a52;
+    border-radius:8px;
+    padding:.5rem .75rem;
+    font-size:.7rem;
+    color:#c1cde0;
+    line-height:1.4;
+  }
+  .source-card .sc-title{font-weight:700;color:#78a9ff;font-size:.73rem;margin-bottom:.18rem;}
+  .col-label{font-size:.68rem;font-weight:700;color:#4a5568;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.3rem;text-align:center;}
+
+  .col-main{display:flex;flex-direction:column;gap:0;}
+
+  .arrow{display:flex;align-items:center;justify-content:center;height:38px;position:relative;}
+  .arrow::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:#3d5a99;transform:translateX(-50%);}
+  .arrow-label{background:#0f1624;border:1px solid #3d5a99;border-radius:20px;padding:.15rem .7rem;font-size:.68rem;color:#78a9ff;position:relative;z-index:1;font-family:monospace;white-space:nowrap;}
+
+  .layer{border-radius:12px;padding:1rem 1.1rem;border:1.5px solid;}
+  .layer-frontend{background:#0d1f3c;border-color:#0f62fe;}
+  .layer-backend{background:#0d1f3c;border-color:#6929c4;}
+  .layer-ibm{background:#0a1628;border-color:#0043ce;}
+
+  .layer-title{font-size:.78rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.65rem;display:flex;align-items:center;gap:.5rem;}
+  .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+
+  .tabs-row{display:flex;gap:.45rem;margin-top:.55rem;flex-wrap:wrap;}
+  .tab-chip{background:#0f2d6e;border:1px solid #1a4aa0;border-radius:6px;padding:.23rem .6rem;font-size:.69rem;color:#a6c8ff;font-weight:500;}
+
+  .api-row{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.55rem;}
+  .api-pill{font-family:monospace;font-size:.62rem;background:#13203b;border:1px solid #2d3a52;border-radius:5px;padding:.18rem .5rem;color:#42be65;}
+  .api-pill.post{color:#ff7eb6;}
+
+  .modules{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-top:.75rem;}
+  .module{background:#111c30;border:1px solid #2d3a52;border-radius:8px;padding:.55rem .7rem;}
+  .module-title{font-size:.7rem;font-weight:700;margin-bottom:.28rem;display:flex;align-items:center;gap:.35rem;}
+  .module-item{font-size:.65rem;color:#8a99b3;line-height:1.6;padding-left:.8rem;position:relative;}
+  .module-item::before{content:'·';position:absolute;left:0;color:#78a9ff;}
+
+  .ibm-grid{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-top:.35rem;}
+  .ibm-box{background:#0a1628;border:1px solid #1a3a70;border-radius:8px;padding:.55rem .75rem;}
+  .ibm-box-title{font-size:.71rem;font-weight:700;color:#78a9ff;margin-bottom:.22rem;}
+  .ibm-box-desc{font-size:.64rem;color:#7a8fa8;line-height:1.5;}
+
+  .ibm-card{background:#0a1628;border:1.5px solid #0043ce;border-radius:10px;padding:.6rem .8rem;}
+  .ibm-card-title{font-size:.7rem;font-weight:700;color:#78a9ff;margin-bottom:.25rem;}
+  .ibm-card-desc{font-size:.63rem;color:#7a8fa8;line-height:1.5;}
+
+  .flow-section{max-width:1020px;margin:0 auto 1.8rem;background:#0d1a2e;border:1px solid #1e2f4a;border-radius:12px;padding:1.1rem 1.4rem;}
+  .flow-title{font-size:.75rem;font-weight:700;color:#a8b2c1;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.9rem;}
+  .flow-steps{display:flex;align-items:center;gap:0;overflow-x:auto;}
+  .flow-step{flex-shrink:0;background:#111c30;border:1px solid #2d3a52;border-radius:8px;padding:.5rem .75rem;font-size:.67rem;color:#c1cde0;text-align:center;min-width:108px;}
+  .flow-step .num{display:block;font-size:.63rem;font-weight:700;color:#78a9ff;margin-bottom:.18rem;font-family:monospace;}
+  .flow-sep{flex-shrink:0;width:28px;text-align:center;font-size:1rem;color:#3d5a99;}
+
+  .tech-row{display:flex;flex-wrap:wrap;gap:.55rem;justify-content:center;max-width:1020px;margin:0 auto 1.8rem;}
+  .tech-chip{display:flex;align-items:center;gap:.35rem;background:#111c30;border:1px solid #2d3a52;border-radius:8px;padding:.38rem .8rem;font-size:.73rem;color:#c1cde0;}
+  .tech-chip strong{color:#fff;}
+
+  .footer{text-align:center;font-size:.72rem;color:#4a5568;border-top:1px solid #1e2f4a;padding-top:1rem;max-width:1020px;margin:0 auto;}
+  .footer strong{color:#6b7280;}
+
+  .c-blue{color:#78a9ff;}
+  .c-purple{color:#be95ff;}
+  .c-teal{color:#3ddbd9;}
+  .c-green{color:#42be65;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="badge">🏆 AICTE Problem Statement #18</div>
+  <h1>AI Grant &amp; Funding Finder for Startups</h1>
+  <p>System Architecture Blueprint — Powered by <strong>IBM Granite</strong> (watsonx.ai) &amp; <strong>IBM Cloud Lite</strong></p>
+</div>
+
+<div class="diagram">
+
+  
+  <div class="col-sources">
+    <div class="col-label">Data Sources</div>
+    <div class="source-card"><div class="sc-title">🇮🇳 Startup India</div>SISFS &amp; DPIIT schemes</div>
+    <div class="source-card"><div class="sc-title">🔬 DST NIDHI</div>PRAYAS &amp; deep-tech</div>
+    <div class="source-card"><div class="sc-title">💻 MeitY TIDE 2.0</div>ICT startup funding</div>
+    <div class="source-card"><div class="sc-title">🎓 AICTE Schemes</div>Innovation &amp; Idea Lab</div>
+    <div class="source-card"><div class="sc-title">🧪 BIRAC</div>Biotech ignition grants</div>
+    <div class="source-card"><div class="sc-title">🌎 NSF / EIC</div>USA &amp; EU global grants</div>
+    <div class="source-card"><div class="sc-title">📡 RSS Feeds</div>Grants.gov live feed</div>
+    <div class="source-card"><div class="sc-title">🕷 Web Scraper</div>Government portals</div>
+  </div>
+
+  
+  <div class="col-main">
+
+    <div class="layer layer-frontend">
+      <div class="layer-title">
+        <div class="dot" style="background:#0f62fe"></div>
+        <span class="c-blue">Frontend — Single Page Application</span>
+      </div>
+      <div style="font-size:.71rem;color:#8a99b3">HTML5 • CSS3 (IBM Design System) • Vanilla JavaScript • REST fetch API</div>
+      <div class="tabs-row">
+        <div class="tab-chip">🔍 Browse Grants</div>
+        <div class="tab-chip">🧠 AI Match</div>
+        <div class="tab-chip">✍️ Draft Proposal</div>
+        <div class="tab-chip">ℹ️ About</div>
+      </div>
+    </div>
+
+    <div class="arrow"><div class="arrow-label">REST API  /api/*</div></div>
+
+    <div class="layer layer-backend">
+      <div class="layer-title">
+        <div class="dot" style="background:#6929c4"></div>
+        <span class="c-purple">Flask Backend — Python 3.10+</span>
+      </div>
+      <div class="api-row">
+        <span class="api-pill">GET /api/grants</span>
+        <span class="api-pill">GET /api/grants/:id</span>
+        <span class="api-pill post">POST /match</span>
+        <span class="api-pill post">POST /propose</span>
+        <span class="api-pill post">POST /summarize</span>
+        <span class="api-pill">GET /health</span>
+      </div>
+      <div class="modules">
+        <div class="module">
+          <div class="module-title"><span>📦</span><span class="c-teal">Grant Aggregator</span></div>
+          <div class="module-item">Static curated DB (10 grants)</div>
+          <div class="module-item">RSS feed parser (feedparser)</div>
+          <div class="module-item">Web scraper (BS4 + lxml)</div>
+          <div class="module-item">60-min TTL JSON cache</div>
+        </div>
+        <div class="module">
+          <div class="module-title"><span>🎯</span><span class="c-teal">Matching Engine</span></div>
+          <div class="module-item">TF-IDF cosine similarity</div>
+          <div class="module-item">Rule-based bonus scoring</div>
+          <div class="module-item">IBM Granite AI re-ranking</div>
+          <div class="module-item">60% AI / 40% keyword blend</div>
+        </div>
+        <div class="module">
+          <div class="module-title"><span>✍️</span><span class="c-purple">Proposal Generator</span></div>
+          <div class="module-item">Granite prompt engineering</div>
+          <div class="module-item">6-section structured output</div>
+          <div class="module-item">Cover letter generation</div>
+          <div class="module-item">Template fallback (offline)</div>
+        </div>
+        <div class="module">
+          <div class="module-title"><span>🔍</span><span class="c-purple">NLP Processor</span></div>
+          <div class="module-item">Grant text summarisation</div>
+          <div class="module-item">Eligibility extraction</div>
+          <div class="module-item">JSON structured output</div>
+          <div class="module-item">IBM Watson NLU pipeline</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow"><div class="arrow-label">ibm-watsonx-ai SDK</div></div>
+
+    <div class="layer layer-ibm">
+      <div class="layer-title">
+        <div class="dot" style="background:#0043ce"></div>
+        <span class="c-blue">IBM Cloud Lite &amp; watsonx.ai Platform</span>
+      </div>
+      <div class="ibm-grid">
+        <div class="ibm-box"><div class="ibm-box-title">🧠 IBM Granite 13B Instruct</div><div class="ibm-box-desc">Foundation LLM for matching, proposal generation &amp; NLU via watsonx.ai inference API</div></div>
+        <div class="ibm-box"><div class="ibm-box-title">☁️ IBM Cloud Lite</div><div class="ibm-box-desc">Free-tier hosting, IAM API key management, secure credential storage in .env</div></div>
+        <div class="ibm-box"><div class="ibm-box-title">🧠 watsonx.ai Studio</div><div class="ibm-box-desc">Project management, model inference endpoint, prompt lab &amp; future fine-tuning</div></div>
+        <div class="ibm-box"><div class="ibm-box-title">🔬 IBM Watson NLU</div><div class="ibm-box-desc">Entity extraction, keyword analysis, sentiment detection from raw grant HTML</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  
+  <div class="col-ibm">
+    <div class="col-label">Key Services</div>
+    <div class="ibm-card">
+      <div class="ibm-card-title">⚡ Granite Inference</div>
+      <div class="ibm-card-desc">granite-13b-instruct-v2<br />Max tokens: 1024<br />Temp: 0.7 / Top-P: 0.9</div>
+    </div>
+    <div class="ibm-card" style="margin-top:.5rem">
+      <div class="ibm-card-title">🔑 Auth (IAM)</div>
+      <div class="ibm-card-desc">IBM Cloud API Key<br />Bearer token exchange<br />Stored in .env</div>
+    </div>
+    <div class="ibm-card" style="margin-top:.5rem">
+      <div class="ibm-card-title">📊 Scoring Logic</div>
+      <div class="ibm-card-desc">Granite AI score: 60%<br />TF-IDF keyword: 40%<br />Rule bonus: +35 max</div>
+    </div>
+    <div class="ibm-card" style="margin-top:.5rem">
+      <div class="ibm-card-title">💾 Cache Layer</div>
+      <div class="ibm-card-desc">JSON on disk<br />TTL: 60 minutes<br />Survives restarts</div>
+    </div>
+    <div class="ibm-card" style="margin-top:.5rem">
+      <div class="ibm-card-title">🛡️ Fallback Mode</div>
+      <div class="ibm-card-desc">Stub AI responses<br />Works fully offline<br />Template proposals</div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="flow-section">
+  <div class="flow-title">End-to-End Data Flow</div>
+  <div class="flow-steps">
+    <div class="flow-step"><span class="num">01</span>Startup enters profile in UI</div>
+    <div class="flow-sep">→</div>
+    <div class="flow-step"><span class="num">02</span>POST /api/grants/match</div>
+    <div class="flow-sep">→</div>
+    <div class="flow-step"><span class="num">03</span>Aggregator fetches all grants</div>
+    <div class="flow-sep">→</div>
+    <div class="flow-step"><span class="num">04</span>TF-IDF scores each grant</div>
+    <div class="flow-sep">→</div>
+    <div class="flow-step"><span class="num">05</span>Top 20 sent to IBM Granite</div>
+    <div class="flow-sep">→</div>
+    <div class="flow-step"><span class="num">06</span>Blended scores returned</div>
+    <div class="flow-sep">→</div>
+    <div class="flow-step"><span class="num">07</span>Granite drafts proposal</div>
+  </div>
+</div>
+
+
+<div class="tech-row">
+  <div class="tech-chip">🧠 <strong>IBM Granite 13B</strong> LLM</div>
+  <div class="tech-chip">☁️ <strong>IBM Cloud Lite</strong></div>
+  <div class="tech-chip">🧠 <strong>watsonx.ai</strong> Studio</div>
+  <div class="tech-chip">🔬 <strong>Watson NLU</strong></div>
+  <div class="tech-chip">🐍 <strong>Python 3.10+</strong> / Flask</div>
+  <div class="tech-chip">📏 <strong>TF-IDF</strong> Matching</div>
+  <div class="tech-chip">🌎 <strong>BeautifulSoup4</strong> + feedparser</div>
+  <div class="tech-chip">🖥️ <strong>HTML5</strong> / CSS3 / JS SPA</div>
+</div>
+
+<div class="footer">
+  <strong>AICTE Problem Statement #18</strong> — AI Grant &amp; Funding Finder for Startups •
+  Powered by <strong style="color:#78a9ff">IBM Granite</strong> on <strong style="color:#78a9ff">IBM Cloud Lite</strong><br />
+  <span style="font-size:.65rem;margin-top:.3rem;display:inline-block">Made with IBM Bob</span>
+</div>
+
+</body>
+</html>

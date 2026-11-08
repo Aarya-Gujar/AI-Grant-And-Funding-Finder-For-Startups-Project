@@ -25,7 +25,7 @@
           "government"
         ],
         "type": "Grant",
-        "last_updated": "2026-11-06T10:18:30.135544"
+        "last_updated": "2026-11-08T11:05:44.283349"
       },
       "startup_india_64cc6f51f1ff": {
         "id": "startup_india_64cc6f51f1ff",
@@ -51,7 +51,7 @@
           "government"
         ],
         "type": "Grant",
-        "last_updated": "2026-11-06T10:18:30.135584"
+        "last_updated": "2026-11-08T11:05:44.283391"
       },
       "startup_india_9cfc9b74983d": {
         "id": "startup_india_9cfc9b74983d",
@@ -77,7 +77,7 @@
           "government"
         ],
         "type": "Grant",
-        "last_updated": "2026-11-06T10:18:30.135646"
+        "last_updated": "2026-11-08T11:05:44.283457"
       },
       "startup_india_f7db11b4ed12": {
         "id": "startup_india_f7db11b4ed12",
@@ -103,7 +103,7 @@
           "government"
         ],
         "type": "Grant",
-        "last_updated": "2026-11-06T10:18:30.135684"
+        "last_updated": "2026-11-08T11:05:44.283496"
       },
       "startup_india_e8e4636a5e0b": {
         "id": "startup_india_e8e4636a5e0b",
@@ -129,7 +129,7 @@
           "government"
         ],
         "type": "Grant",
-        "last_updated": "2026-11-06T10:18:30.135784"
+        "last_updated": "2026-11-08T11:05:44.283592"
       },
       "startup_india_1a81759353d3": {
         "id": "startup_india_1a81759353d3",
@@ -155,7 +155,7 @@
           "government"
         ],
         "type": "Grant",
-        "last_updated": "2026-11-06T10:18:30.135755"
+        "last_updated": "2026-11-08T11:05:44.283563"
       },
       "dst_nidhi_98291a0d0fcf": {
         "id": "dst_nidhi_98291a0d0fcf",
@@ -181,7 +181,7 @@
           "india"
         ],
         "type": "Grant",
-        "last_updated": "2026-11-06T10:18:31.960078"
+        "last_updated": "2026-11-08T11:05:48.845908"
       },
       "dst_nidhi_bfaeb97d7b46": {
         "id": "dst_nidhi_bfaeb97d7b46",
@@ -207,7 +207,7 @@
           "india"
         ],
         "type": "Grant",
-        "last_updated": "2026-11-06T10:18:31.960122"
+        "last_updated": "2026-11-08T11:05:48.845956"
       },
       "dst_nidhi_91770f038cd9": {
         "id": "dst_nidhi_91770f038cd9",
@@ -233,7 +233,7 @@
           "india"
         ],
         "type": "Grant",
-        "last_updated": "2026-11-06T10:18:31.960245"
+        "last_updated": "2026-11-08T11:05:48.846092"
       },
       "dst_nidhi_8aad28f6c01e": {
         "id": "dst_nidhi_8aad28f6c01e",
@@ -259,7 +259,7 @@
           "india"
         ],
         "type": "Grant",
-        "last_updated": "2026-11-06T10:18:31.960272"
+        "last_updated": "2026-11-08T11:05:48.846123"
       },
       "dst_nidhi_a307c37af74f": {
         "id": "dst_nidhi_a307c37af74f",
@@ -285,7 +285,7 @@
           "india"
         ],
         "type": "Grant",
-        "last_updated": "2026-11-06T10:18:31.960299"
+        "last_updated": "2026-11-08T11:05:48.846154"
       },
       "dst_nidhi_030bc983c839": {
         "id": "dst_nidhi_030bc983c839",
@@ -311,7 +311,7 @@
           "india"
         ],
         "type": "Grant",
-        "last_updated": "2026-11-06T10:18:31.960330"
+        "last_updated": "2026-11-08T11:05:48.846189"
       },
       "dst_nidhi_13c6c6ed2269": {
         "id": "dst_nidhi_13c6c6ed2269",
@@ -337,9 +337,9 @@
           "india"
         ],
         "type": "Grant",
-        "last_updated": "2026-11-06T10:18:31.960359"
+        "last_updated": "2026-11-08T11:05:48.846220"
       }
     }
   },
-  "timestamp": "2026-11-06T10:18:43.946741"
+  "timestamp": "2026-11-08T11:06:09.970554"
 }

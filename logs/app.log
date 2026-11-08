@@ -164,3 +164,52 @@
 2026-11-06 15:48:50,062 [INFO] werkzeug — 127.0.0.1 - - [06/Nov/2026 15:48:50] "GET /api/grants HTTP/1.1" 200 -
 2026-11-06 15:48:50,141 [INFO] werkzeug — 127.0.0.1 - - [06/Nov/2026 15:48:50] "[36mGET /favicon.ico HTTP/1.1[0m" 304 -
 2026-11-06 15:52:50,277 [INFO] werkzeug — 127.0.0.1 - - [06/Nov/2026 15:52:50] "POST /api/grants/match HTTP/1.1" 200 -
+2026-11-08 16:35:23,549 [INFO] httpx — HTTP Request: POST https://iam.cloud.ibm.com/identity/token "HTTP/1.1 200 OK"
+2026-11-08 16:35:23,550 [INFO] ibm_watsonx_ai.client — Client successfully initialized
+2026-11-08 16:35:24,128 [INFO] httpx — HTTP Request: GET https://api.dataplatform.cloud.ibm.com/v2/projects/d2a77e71-04ac-4f92-b7df-627a85e173d1 "HTTP/1.1 200 OK"
+2026-11-08 16:35:25,008 [INFO] httpx — HTTP Request: GET https://us-south.ml.cloud.ibm.com/ml/v1/foundation_model_specs?version=2026-11-05&project_id=d2a77e71-04ac-4f92-b7df-627a85e173d1&filters=%21lifecycle_withdrawn&limit=200 "HTTP/1.1 200 OK"
+2026-11-08 16:35:25,842 [INFO] ibm_watsonx_ai.wml_resource — Successfully finished Get available foundation models for url: 'https://us-south.ml.cloud.ibm.com/ml/v1/foundation_model_specs?version=2026-11-05&project_id=d2a77e71-04ac-4f92-b7df-627a85e173d1&filters=%21lifecycle_withdrawn&limit=200'
+2026-11-08 16:35:26,267 [INFO] httpx — HTTP Request: GET https://us-south.ml.cloud.ibm.com/ml/v1/foundation_model_specs?version=2026-11-05&project_id=d2a77e71-04ac-4f92-b7df-627a85e173d1&filters=%21lifecycle_withdrawn&tech_preview=true&limit=200 "HTTP/1.1 200 OK"
+2026-11-08 16:35:26,373 [INFO] ibm_watsonx_ai.wml_resource — Successfully finished Get available foundation models for url: 'https://us-south.ml.cloud.ibm.com/ml/v1/foundation_model_specs?version=2026-11-05&project_id=d2a77e71-04ac-4f92-b7df-627a85e173d1&filters=%21lifecycle_withdrawn&tech_preview=true&limit=200'
+2026-11-08 16:35:26,378 [WARNING] ibm_watsonx_ai.wml_client_error — Model 'ibm/granite-13b-instruct-v2' is not supported for this environment. Supported models: ['ibm/granite-3-1-8b-base', 'ibm/granite-4-h-small', 'ibm/granite-embedding-278m-multilingual', 'ibm/granite-ttm-1024-96-r2', 'ibm/granite-ttm-1536-96-r2', 'ibm/granite-ttm-512-96-r2', 'ibm/slate-125m-english-rtrvr-v2', 'ibm/slate-30m-english-rtrvr-v2', 'intfloat/multilingual-e5-large', 'meta-llama/llama-3-1-70b-gptq', 'meta-llama/llama-3-1-8b', 'meta-llama/llama-3-3-70b-instruct', 'meta-llama/llama-4-maverick-17b-128e-instruct-fp8', 'mistral-large-2512', 'mistralai/mistral-medium-2505', 'mistralai/mistral-small-3-1-24b-instruct-2503', 'openai/gpt-oss-120b', 'sentence-transformers/all-minilm-l6-v2']
+2026-11-08 16:35:26,378 [ERROR] app.services.granite_service — Failed to initialise IBM Granite model: Model 'ibm/granite-13b-instruct-v2' is not supported for this environment. Supported models: ['ibm/granite-3-1-8b-base', 'ibm/granite-4-h-small', 'ibm/granite-embedding-278m-multilingual', 'ibm/granite-ttm-1024-96-r2', 'ibm/granite-ttm-1536-96-r2', 'ibm/granite-ttm-512-96-r2', 'ibm/slate-125m-english-rtrvr-v2', 'ibm/slate-30m-english-rtrvr-v2', 'intfloat/multilingual-e5-large', 'meta-llama/llama-3-1-70b-gptq', 'meta-llama/llama-3-1-8b', 'meta-llama/llama-3-3-70b-instruct', 'meta-llama/llama-4-maverick-17b-128e-instruct-fp8', 'mistral-large-2512', 'mistralai/mistral-medium-2505', 'mistralai/mistral-small-3-1-24b-instruct-2503', 'openai/gpt-oss-120b', 'sentence-transformers/all-minilm-l6-v2']
+2026-11-08 16:35:26,390 [INFO] app.services.grant_aggregator — Cache loaded from data\grants_cache.json
+2026-11-08 16:35:26,581 [INFO] werkzeug — [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.34.106.250:5000
+2026-11-08 16:35:26,581 [INFO] werkzeug — [33mPress CTRL+C to quit[0m
+2026-11-08 16:35:26,585 [INFO] werkzeug —  * Restarting with stat
+2026-11-08 16:35:30,932 [INFO] httpx — HTTP Request: POST https://iam.cloud.ibm.com/identity/token "HTTP/1.1 200 OK"
+2026-11-08 16:35:30,933 [INFO] ibm_watsonx_ai.client — Client successfully initialized
+2026-11-08 16:35:31,550 [INFO] httpx — HTTP Request: GET https://api.dataplatform.cloud.ibm.com/v2/projects/d2a77e71-04ac-4f92-b7df-627a85e173d1 "HTTP/1.1 200 OK"
+2026-11-08 16:35:32,351 [INFO] httpx — HTTP Request: GET https://us-south.ml.cloud.ibm.com/ml/v1/foundation_model_specs?version=2026-11-05&project_id=d2a77e71-04ac-4f92-b7df-627a85e173d1&filters=%21lifecycle_withdrawn&limit=200 "HTTP/1.1 200 OK"
+2026-11-08 16:35:32,769 [INFO] ibm_watsonx_ai.wml_resource — Successfully finished Get available foundation models for url: 'https://us-south.ml.cloud.ibm.com/ml/v1/foundation_model_specs?version=2026-11-05&project_id=d2a77e71-04ac-4f92-b7df-627a85e173d1&filters=%21lifecycle_withdrawn&limit=200'
+2026-11-08 16:35:33,336 [INFO] httpx — HTTP Request: GET https://us-south.ml.cloud.ibm.com/ml/v1/foundation_model_specs?version=2026-11-05&project_id=d2a77e71-04ac-4f92-b7df-627a85e173d1&filters=%21lifecycle_withdrawn&tech_preview=true&limit=200 "HTTP/1.1 200 OK"
+2026-11-08 16:35:34,024 [INFO] ibm_watsonx_ai.wml_resource — Successfully finished Get available foundation models for url: 'https://us-south.ml.cloud.ibm.com/ml/v1/foundation_model_specs?version=2026-11-05&project_id=d2a77e71-04ac-4f92-b7df-627a85e173d1&filters=%21lifecycle_withdrawn&tech_preview=true&limit=200'
+2026-11-08 16:35:34,032 [WARNING] ibm_watsonx_ai.wml_client_error — Model 'ibm/granite-13b-instruct-v2' is not supported for this environment. Supported models: ['ibm/granite-3-1-8b-base', 'ibm/granite-4-h-small', 'ibm/granite-embedding-278m-multilingual', 'ibm/granite-ttm-1024-96-r2', 'ibm/granite-ttm-1536-96-r2', 'ibm/granite-ttm-512-96-r2', 'ibm/slate-125m-english-rtrvr-v2', 'ibm/slate-30m-english-rtrvr-v2', 'intfloat/multilingual-e5-large', 'meta-llama/llama-3-1-70b-gptq', 'meta-llama/llama-3-1-8b', 'meta-llama/llama-3-3-70b-instruct', 'meta-llama/llama-4-maverick-17b-128e-instruct-fp8', 'mistral-large-2512', 'mistralai/mistral-medium-2505', 'mistralai/mistral-small-3-1-24b-instruct-2503', 'openai/gpt-oss-120b', 'sentence-transformers/all-minilm-l6-v2']
+2026-11-08 16:35:34,032 [ERROR] app.services.granite_service — Failed to initialise IBM Granite model: Model 'ibm/granite-13b-instruct-v2' is not supported for this environment. Supported models: ['ibm/granite-3-1-8b-base', 'ibm/granite-4-h-small', 'ibm/granite-embedding-278m-multilingual', 'ibm/granite-ttm-1024-96-r2', 'ibm/granite-ttm-1536-96-r2', 'ibm/granite-ttm-512-96-r2', 'ibm/slate-125m-english-rtrvr-v2', 'ibm/slate-30m-english-rtrvr-v2', 'intfloat/multilingual-e5-large', 'meta-llama/llama-3-1-70b-gptq', 'meta-llama/llama-3-1-8b', 'meta-llama/llama-3-3-70b-instruct', 'meta-llama/llama-4-maverick-17b-128e-instruct-fp8', 'mistral-large-2512', 'mistralai/mistral-medium-2505', 'mistralai/mistral-small-3-1-24b-instruct-2503', 'openai/gpt-oss-120b', 'sentence-transformers/all-minilm-l6-v2']
+2026-11-08 16:35:34,034 [INFO] app.services.grant_aggregator — Cache loaded from data\grants_cache.json
+2026-11-08 16:35:34,080 [WARNING] werkzeug —  * Debugger is active!
+2026-11-08 16:35:34,085 [INFO] werkzeug —  * Debugger PIN: 138-054-539
+2026-11-08 16:35:43,055 [INFO] werkzeug — 127.0.0.1 - - [08/Nov/2026 16:35:43] "[36mGET / HTTP/1.1[0m" 304 -
+2026-11-08 16:35:43,068 [INFO] werkzeug — 127.0.0.1 - - [08/Nov/2026 16:35:43] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-11-08 16:35:43,106 [INFO] werkzeug — 127.0.0.1 - - [08/Nov/2026 16:35:43] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2026-11-08 16:35:43,223 [INFO] werkzeug — 127.0.0.1 - - [08/Nov/2026 16:35:43] "GET /api/health HTTP/1.1" 200 -
+2026-11-08 16:35:43,225 [INFO] app.services.grant_aggregator — Refreshing live grant data from 6 sources…
+2026-11-08 16:35:43,231 [INFO] app.services.grant_aggregator — Refreshing live grant data from 6 sources…
+2026-11-08 16:35:43,284 [INFO] werkzeug — 127.0.0.1 - - [08/Nov/2026 16:35:43] "[36mGET /favicon.ico HTTP/1.1[0m" 304 -
+2026-11-08 16:35:44,266 [INFO] app.services.grant_aggregator —   ✓ Startup India — 7 grants
+2026-11-08 16:35:44,284 [INFO] app.services.grant_aggregator —   ✓ Startup India — 7 grants
+2026-11-08 16:35:48,841 [INFO] app.services.grant_aggregator —   ✓ DST NIDHI Programme — 10 grants
+2026-11-08 16:35:48,847 [INFO] app.services.grant_aggregator —   ✓ DST NIDHI Programme — 10 grants
+2026-11-08 16:35:48,894 [WARNING] app.services.grant_aggregator —   ✗ MeitY Startup Hub — HTTPSConnectionPool(host='www.msh.gov.in', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("HTTPSConnection(host='www.msh.gov.in', port=443): Failed to resolve 'www.msh.gov.in' ([Errno 11001] getaddrinfo failed)"))
+2026-11-08 16:35:48,895 [WARNING] app.services.grant_aggregator —   ✗ MeitY Startup Hub — HTTPSConnectionPool(host='www.msh.gov.in', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("HTTPSConnection(host='www.msh.gov.in', port=443): Failed to resolve 'www.msh.gov.in' ([Errno 11001] getaddrinfo failed)"))
+2026-11-08 16:36:01,079 [WARNING] app.services.grant_aggregator —   ✗ AICTE Research & Innovation Schemes — HTTPSConnectionPool(host='www.aicte-india.org', port=443): Read timed out. (read timeout=10)
+2026-11-08 16:36:01,105 [WARNING] app.services.grant_aggregator —   ✗ AICTE Research & Innovation Schemes — HTTPSConnectionPool(host='www.aicte-india.org', port=443): Read timed out. (read timeout=10)
+2026-11-08 16:36:08,901 [INFO] app.services.grant_aggregator —   ✓ Grants.gov (US Federal) — 0 grants
+2026-11-08 16:36:08,930 [INFO] app.services.grant_aggregator —   ✓ Grants.gov (US Federal) — 0 grants
+2026-11-08 16:36:09,949 [INFO] app.services.grant_aggregator —   ✓ EU Horizon Europe — 0 grants
+2026-11-08 16:36:09,951 [INFO] werkzeug — 127.0.0.1 - - [08/Nov/2026 16:36:09] "GET /api/grants?page=1&per_page=12 HTTP/1.1" 200 -
+2026-11-08 16:36:09,970 [INFO] app.services.grant_aggregator —   ✓ EU Horizon Europe — 0 grants
+2026-11-08 16:36:09,972 [INFO] werkzeug — 127.0.0.1 - - [08/Nov/2026 16:36:09] "GET /api/grants?per_page=50 HTTP/1.1" 200 -
